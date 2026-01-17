@@ -1,9 +1,11 @@
-# Compile and run csharp code
+# Create, Compile and run csharp Project
+- **Create Dotnet project**
+     - dotnet new console -n MyApp
 - Compile
-    - `csc FileName.cs` ---> convert the csharp into the FileName.exe file
-    - `FileName.exe` ---> This command help to run the code.
+    - `csc Program.cs` ---> convert the csharp into the FileName.exe file
+    - `Program.exe` ---> This command help to run the code.
 - Run
-    - `dotnet run FileName.cs` ---> This command help to compile and run both the code at a time.
+    - `dotnet run Program.cs` ---> This command help to compile and run both the code at a time.
 
 ## Entry point of csharp code
 - program.cs file is the entry point in the csharp code which is present in the System namespace(package)
@@ -17,7 +19,7 @@ static int Main()
 static void Main(string[] args)
 static int Main(string[] args)
 ```
-###
+##
 - Must be static → So the runtime can call it without creating an object.
 - Must be Main → It’s the predefined entry point recognized by the CLR.
 - Return type: void or int → Void ends execution cleanly, int returns status code to the OS.
@@ -34,7 +36,6 @@ static int Main(string[] args)
          ↓
      Machine Code → Program Runs
 ```
-
 
 ## Intermediate Language (IL)
 - Platform-independent code
@@ -56,6 +57,16 @@ static int Main(string[] args)
 - internal           → Same project only
 - protected internal → Same project OR derived class (any project)
 - private protected  → Same class + derived class (same project only)
+
+## Default Access Modifiers in C#
+| Member Type        | Location       | Default Access Modifier |
+|--------------------|----------------|--------------------------|
+| Class              | Top-level      | internal                 |
+| Class              | Nested         | private                  |
+| Method             | Inside class   | private                  |
+| Variable / Field   | Inside class   | private                  |
+| Constructor        | Inside class   | private                  |
+
 
 
 ## memory area in the csharp || memory management in csharp
@@ -127,7 +138,11 @@ static int Main(string[] args)
 - `#` : **protected**
 - `~` : **internal**
 - `<>` : **aggregation**
-
+```
+- class diagram 
+- sequence diagram
+- object modelling
+```
 ---
 
 ## 🔹 What is Aggregation?
@@ -150,7 +165,7 @@ static int Main(string[] args)
 - In C#, a nested class can have five access modifiers: `public`, `private`, `protected`, `internal`, and `protected internal`.
 - `readonly: ` You need to return multiple results || To improve code safety and maintainability.
 
-### out keyword
+## out keyword
 - use to pass the value of variable from method to caller.
 - Return multiple values.
 - Send data from method to caller
@@ -158,20 +173,20 @@ static int Main(string[] args)
 - Indicate output-only parameters
 - Improve performance (no extra object creation)
 
-### OOPS 
+## OOPS 
 - (Object-Oriented Programming System) is a programming approach based on objects that combine data and methods to model real-world entities.
 
-### Encapsulation (Data Hiding)
+## Encapsulation (Data Hiding)
 - Wrapping data + methods into one unit (class)
 - Restrict direct access using private
 - Access data via properties (method like getter and setter using public access modifier)
 
-### Inheritance (Code Reusability)
+## Inheritance (Code Reusability)
 - One class acquires properties of another class
 - `: symbol used`
 - ex: Animal --> Dog
 
-### Polymorphism (Many Forms)
+## Polymorphism (Many Forms)
 - Same method name
 - Different behavior
 
@@ -191,7 +206,7 @@ static int Main(string[] args)
           - `within different class`
           - decision happen at run time
 
-### Constructor
+## Constructor
 - A constructor is a special method
 - Same name as class
 - Automatically called when object is created
@@ -215,45 +230,43 @@ static int Main(string[] args)
 
 - `readonly` is used to declare variables that can be assigned only once, either: at declaration, or inside the constructor.
 
-### `Constructor chaning`
+## `Constructor chaning`
      Constructor chaining is a mechanism where one constructor calls another constructor of the same class or the base (parent) class to avoid code duplication and ensure proper initialization of objects.
 
 
-###
+##
 `git fetch`: Used to get the latest changes from the remote repository without affecting your current branch or code.
 
 `git pull`: Used to get the latest changes from the remote repository and immediately merge them into your current branch.
 
-###
+##
 `A namespace is a logical container that organizes code and prevents naming collisions.`
 
-
-
-### 
+## 
 abstract method ---> Non cocreate method by default public + abstract
 non abstract method---> Concrete method
 
-### Loose coupling by using Interface
+## Loose coupling by using Interface
 `ILoan loan = new HomeLoan();` so that i dont have to change the whole object;
 
-### version 2 v-2
+## version 2 v-2
 - IWheather api = new Google();
 - IWheather api = new Microsoft();
 - IWheather api = new Amazon();
 - IWheather api = new Tesla();
 
-### Next versions losse coupling
+## Next versions losse coupling
 - IWheather api;
 - api = new Google();
 - api = new Microsoft();
 - api = new Amazon();
 - api = new Tesla();
 
-### encapsulation
+## encapsulation
 - Use the user data and store them inside a class which is encapsulated.
 
 
-### SOLID Principle
+## SOLID Principle
 - `S – Single Responsibility Principle (SRP)` → One class, one job (make every class and interface for a single purpose like for IUser, IPay, ICart);
 - `O – Open/Closed Principle (OCP)` → Extend, don’t modify (previous things dont change)
 - `L – Liskov Substitution Principle (LSP)` → Child behaves like parent
@@ -261,10 +274,115 @@ non abstract method---> Concrete method
 - `D – Dependency Inversion Principle (DIP)` → Depend on interfaces, not classes (like constructor dependency injection)
 ---
 
-### 
+## 
 - The Main method cannot be overridden in C# because it is static.
 - Static methods do not support polymorphism, so override is not allowed.
 - Writing another Main method in a child class results in method hiding, not overriding.
 - When multiple Main methods exist, only one is chosen as the program entry point based on project settings.
 - Therefore, Main does not participate in inheritance or runtime polymorphism in C#.
+- `Var data types:` all rounder data types in csharp
+## 
+`TryParse:-` is used to safely convert a string into another data type (like int, double, DateTime, etc.) without throwing an exception if the conversion fails.
 
+##
+**Upcasting** is an Object-Oriented Programming concept where a child class object is referenced using a parent class type.
+```
+// Upcasting
+Animal animal = new Dog();
+animal.Eat();    // Parent method
+animal.Sound();  // Child method (runtime polymorphism)
+// animal.Bark(); ❌ Not accessible
+```
+**Downcasting** is an Object-Oriented Programming concept where a parent class reference is converted back into a child class type.
+```
+// Upcasting
+Animal animal = new Dog();    
+// Downcasting (explicit)
+Dog dog = (Dog)animal;   
+dog.Bark();  // Child method
+```
+
+## Convertion of data types
+1. **Implicite** *safe*
+> byte → short → int → long → float → double
+
+     ```
+     int a = 10;
+     double b = a;   // int → double (implicit)
+     Console.WriteLine(b);
+     ```
+2. **Explicite** *unsafe*
+> double → float → long → int
+
+     ```
+     double a = 10.75;
+     int b = (int)a;   // double → int (explicit)
+     Console.WriteLine(b);  // Output: 10
+     ```
+
+
+## Arcitecture use in c# coding
+1. Monolithic layer
+2. Model layer
+3. Utlity layer (service layer) (bussiness layer)
+4. data base layer
+5. Controller (use in collection)
+
+# 🌐 HTTP Status Codes – Tech Industry Cheat Sheet
+
+## 🔵 1xx – Informational (Rare in daily use)
+Used internally by browsers/servers.
+
+- **100** – Continue  
+- **101** – Switching Protocols  
+---
+
+## 🟢 2xx – Success (Most important)
+Used when request is **successful**.
+
+| Code | Meaning | Industry Use |
+|----|--------|--------------|
+| **200** | OK | Successful GET / PUT |
+| **201** | Created | Resource created (POST) |
+| **202** | Accepted | Async processing |
+| **204** | No Content | Success, no response body |
+---
+
+## 🟡 3xx – Redirection (Web-heavy)
+Used mainly in **browsers & SEO**.
+
+| Code | Meaning | Use |
+|----|--------|-----|
+| **301** | Moved Permanently | SEO redirect |
+| **302** | Found | Temporary redirect |
+| **304** | Not Modified | Caching |
+| **307** | Temporary Redirect | API-safe redirect |
+| **308** | Permanent Redirect | API permanent |
+---
+
+## 🔴 4xx – Client Errors (Very common)
+Client sent **bad request**.
+
+| Code | Meaning | Industry Scenario |
+|----|--------|-------------------|
+| **400** | Bad Request | Invalid JSON / params |
+| **401** | Unauthorized | Token missing |
+| **403** | Forbidden | No permission |
+| **404** | Not Found | API / page missing |
+| **405** | Method Not Allowed | Wrong HTTP verb |
+| **409** | Conflict | Duplicate data |
+| **415** | Unsupported Media Type | Wrong Content-Type |
+| **422** | Unprocessable Entity | Validation failed |
+| **429** | Too Many Requests | Rate limit |
+---
+
+## ⚫ 5xx – Server Errors (Critical)
+Problem on **server side**.
+
+| Code | Meaning | Industry Meaning |
+|----|--------|------------------|
+| **500** | Internal Server Error | Code crash |
+| **502** | Bad Gateway | Downstream service error |
+| **503** | Service Unavailable | Server overloaded |
+| **504** | Gateway Timeout | No response from service |
+---
