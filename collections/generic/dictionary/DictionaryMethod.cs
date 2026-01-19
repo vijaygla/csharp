@@ -7,11 +7,11 @@ class DictionaryMethod
     static void Display(Dictionary<int, string> dict, string message)
     {
         Console.WriteLine(message);
-        foreach (var kvp in dict)
+        foreach (var d in dict)
         {
-            Console.WriteLine("Key: " + kvp.Key + ", Value: " + kvp.Value);
+            Console.WriteLine("Key: " + d.Key + ", Value: " + d.Value);
         }
-        Console.WriteLine(); // for spacing
+        Console.WriteLine(); 
     }
 
     static void Main()

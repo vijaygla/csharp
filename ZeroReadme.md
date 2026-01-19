@@ -386,3 +386,120 @@ Problem on **server side**.
 | **503** | Service Unavailable | Server overloaded |
 | **504** | Gateway Timeout | No response from service |
 ---
+
+# Composition and Aggregation (OOP)
+
+## 1️⃣ Composition
+
+### Definition
+Composition is a **strong has-a relationship** in which the child object **cannot exist without** the parent object.  
+When the parent is destroyed, the child is also destroyed.
+
+### Example (C#)
+```csharp
+class Engine
+{
+    public void Start()
+    {
+        Console.WriteLine("Engine started");
+    }
+}
+
+class Car
+{
+    private Engine engine;
+
+    public Car()
+    {
+        engine = new Engine(); // Engine created inside Car
+    }
+
+    public void Drive()
+    {
+        engine.Start();
+        Console.WriteLine("Car is moving");
+    }
+}
+
+
+## 2️⃣ Aggregation
+
+### Definition
+Aggregation is a **weak has-a relationship** where the child object **can exist independently** of the parent object.
+
+### Example (C#)
+```csharp
+class Employee
+{
+    public string Name { get; set; }
+}
+
+class Department
+{
+    public Employee employee;
+
+    public Department(Employee emp)
+    {
+        employee = emp; // Employee exists independently
+    }
+}
+```
+
+# Asymptotic Notation
+
+Asymptotic notation is used to describe the **time and space complexity** of an algorithm as the input size (**n**) grows very large. It helps compare algorithm efficiency independent of hardware or programming language.
+
+---
+
+## 🔹 Types of Asymptotic Notations
+
+### 1️⃣ Big-O Notation (O)
+
+**Definition:**  
+Represents the **worst-case** time or space complexity.
+
+**Example:**
+```csharp
+for(int i = 0; i < n; i++)
+{
+    Console.WriteLine(i);
+}
+```
+
+## 2️⃣ Big-Ω Notation (Omega Ω)
+
+### Definition
+Represents the **best-case** time complexity.
+
+### Example
+```csharp
+if(arr[0] == key)
+{
+    return true;
+}
+```
+
+## 3️⃣ Big-Θ Notation (Theta Θ)
+
+### Definition
+Represents the **average or exact bound** (both upper and lower).
+
+### Example
+```csharp
+for(int i = 0; i < n; i++)
+{
+    Console.WriteLine(i);
+}
+```
+## 🔹 Common Time Complexities
+| Notation | Name |
+|--------|------|
+| O(1) | Constant |
+| O(log n) | Logarithmic |
+| O(n) | Linear |
+| O(n log n) | Linearithmic |
+| O(n²) | Quadratic |
+| O(2ⁿ) | Exponential |
+---
+
+## 

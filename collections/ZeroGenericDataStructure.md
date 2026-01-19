@@ -355,7 +355,8 @@ A **disjoint set** keeps track of elements divided into **non-overlapping groups
 `The Collection Framework in C# is a set of classes and interfaces used to store, manage, and manipulate groups of objects dynamically`
 
 ## Categories of Collections in C#
-```Collections
+```
+Collections
 │
 ├── Non-Generic Collections (System.Collections)
 │
