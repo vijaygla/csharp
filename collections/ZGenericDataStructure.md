@@ -384,17 +384,178 @@ System.Collections
 ```
 
 
-### Types of collection
-1. *Non generic collection*
-    - store object type, not type-safe(array-list, hashtable, stack, queue)
-    - `using System.Collections`
-2. *Generic Collection*
-    - store object types, type-safe, no boxing/unboxing
-    - `System.Collections.Generic`
-        #### Example
-        - List<TType>
-        - Dictionary<TKey, TValue>
-        - Stack<TType>
-        - Queue<TType>
-        - HashSet<TType>
+# Types of Collections in C# and Their Uses
 
+## 1. Non-Generic Collections
+**Namespace:** `System.Collections`
+
+### Characteristics
+- Store elements as `object`
+- Not type-safe
+- Requires boxing and unboxing
+- Slower compared to generic collections
+- Mostly used in legacy applications
+
+## 2. Generic Collections
+
+**Namespace:** `System.Collections.Generic`
+
+Generic collections are **type-safe**, **high-performance**, and the **most widely used collections in industry**.  
+They avoid boxing/unboxing and catch errors at compile time.
+
+---
+
+## Why Generic Collections Are Used in Industry
+- Type safety (fewer runtime errors)
+- Better performance
+- Clean, maintainable code
+- Standard in ASP.NET, Microservices, Desktop & Cloud apps
+
+---
+
+## 1. List<T>
+
+### Description
+- Dynamic array
+- Maintains insertion order
+- Allows duplicates
+- Fast access using index
+
+### Industry Use
+- Employee records
+- Product catalogs
+- API response lists
+
+### Real-Life Example
+- To-do list
+- Shopping list
+
+## 3. Concurrent Collections
+**Namespace:** `System.Collections.Concurrent`
+
+Concurrent collections are **thread-safe collections** designed for **multi-threaded and parallel applications**.  
+They eliminate the need for manual locking (`lock`) and prevent race conditions.
+
+---
+
+## Why Concurrent Collections Are Used in Industry
+- Handle **multiple threads safely**
+- Avoid deadlocks and race conditions
+- High performance under parallel workloads
+- Widely used in **Web APIs, Microservices, Cloud & Real-time systems**
+
+---
+
+## 1. ConcurrentDictionary<TKey, TValue>
+
+### Description
+- Thread-safe key–value collection
+- Multiple threads can read/write safely
+- Faster than `Dictionary` with locks
+
+### Industry Use
+- In-memory caching
+- Session management
+- Feature flags
+
+### Real-Life Example
+- Shared notice board updated by many people
+
+```csharp
+ConcurrentDictionary<int, string> users =
+    new ConcurrentDictionary<int, string>();
+
+users.TryAdd(1, "Admin");
+```
+
+## 4. Specialized Collections in C#
+**Namespace:** `System.Collections.Specialized`
+
+Specialized collections are designed for **specific, well-defined use cases**.  
+They are optimized for **memory, ordering, or key–value patterns** that are not fully covered by generic collections.
+
+---
+
+## Why Specialized Collections Are Used in Industry
+- Solve **niche problems** efficiently
+- Reduce custom implementation
+- Useful in **framework-level**, **configuration**, and **web-related** scenarios
+
+---
+
+## 1. NameValueCollection
+
+### Description
+- One key can have **multiple values**
+- Keys are strings
+- Values are stored as string arrays internally
+
+### Industry Use
+- HTTP headers
+- Query strings
+- Application settings
+
+### Real-Life Example
+- A person having multiple phone numbers
+
+```csharp
+NameValueCollection headers = new NameValueCollection();
+headers.Add("Accept", "application/json");
+headers.Add("Accept", "text/html");
+```
+
+# Exceptions (Notes)
+
+Exceptions are runtime errors that occur during program execution and disrupt the normal flow of a program.
+
+---
+
+## Exception Handling in C#
+**Namespace:** `System`
+
+Exception handling is done using:
+- `try`
+- `catch`
+- `finally`
+- `throw`
+
+## 🔹 Types of Exceptions in C#
+
+### 1️⃣ System Exceptions
+Thrown by **CLR (Common Language Runtime)**.
+
+**Common system exceptions:**
+- `NullReferenceException`
+- `IndexOutOfRangeException`
+- `DivideByZeroException`
+- `FormatException`
+- `OverflowException`
+
+**Example:**
+```csharp
+int a = 10;
+int b = 0;
+Console.WriteLine(a / b); // DivideByZeroException
+```
+### 2️⃣ Application Exceptions
+
+Created by **developers** to represent **application-specific errors**.
+
+**Example:**
+```csharp
+throw new ApplicationException("Invalid operation");
+```
+## 🔹 Exception Hierarchy in C#
+```csharp
+Object
+ └── Exception
+     ├── SystemException
+     │    ├── NullReferenceException
+     │    ├── IndexOutOfRangeException
+     │    ├── ArithmeticException
+     │    └── DivideByZeroException
+     │
+     └── ApplicationException
+```
+---
+#

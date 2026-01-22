@@ -144,22 +144,6 @@ static int Main(string[] args)
 - object modelling
 ```
 ---
-
-## 🔹 What is Aggregation?
-- Aggregation is a **"Has-A" relationship** between classes.  
-- It represents a **whole-part relationship** where the part can exist independently of the whole.  
-- Shown in UML with a **hollow diamond (<>--).**
-
----
-- method having the smame signature in the overiding
-
-- **Method hiding**: when we override the static method 
-- Yes, static methods can be overloaded in C# because overloading is resolved at compile time, but they cannot be overridden.
-- use virtual for the base method and use the override in case of override method
-- interfcae have non concreate method
-- abstract class have both concreate as well as non concrete method
-- interface does not have any constructor.
-
 ## Access Modifier allow for the main class in c#
 - In C#, there are two class access modifiers: `public` and `internal`.
 - In C#, a nested class can have five access modifiers: `public`, `private`, `protected`, `internal`, and `protected internal`.
@@ -420,7 +404,7 @@ class Car
         Console.WriteLine("Car is moving");
     }
 }
-
+```
 
 ## 2️⃣ Aggregation
 
