@@ -1,0 +1,12 @@
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\bin\Debug\net10.0\CalculatorTesting.Core.deps.json
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\bin\Debug\net10.0\CalculatorTesting.Core.dll
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\bin\Debug\net10.0\CalculatorTesting.Core.pdb
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.AssemblyInfoInputs.cache
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.AssemblyInfo.cs
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.csproj.CoreCompileInputs.cache
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.sourcelink.json
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.dll
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\refint\CalculatorTesting.Core.dll
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\CalculatorTesting.Core.pdb
+C:\v\BridgeLabz-Training\collection-csharp-practice\gcr-codebase\regex\CalculatorTesting\CalculatorTesting.Core\obj\Debug\net10.0\ref\CalculatorTesting.Core.dll

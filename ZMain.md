@@ -304,7 +304,216 @@ dog.Bark();  // Child method
      Console.WriteLine(b);  // Output: 10
      ```
 
+# Boxing and Unboxing
+## Boxing (C#)
+Boxing is the process of converting a value type (like int, float, struct) into an object type.
+```
+int a = 10;
+object obj = a;   // boxing
+```
+## Unboxing (C#)
+Unboxing is the process of converting a boxed object back into its original value type.
+It requires explicit type casting.
+```
+object obj = 20;  
+int b = (int)obj;   // unboxing
+```
+## 🔍 Comparison Table
 
+| Feature         | var           | dynamic        | object             |
+|-----------------|---------------|----------------|--------------------|
+| Type Binding    | Compile-time  | Runtime        | Compile-time       |
+| Type Safety     | High          | Low            | Medium             |
+| Casting Needed  | No            | No             | Yes                |
+| Performance     | Fast          | Slower         | Slower (boxing)    |
+| Change Type     | ❌ No         | ✅ Yes         | ✅ Yes             |
+---
+## 🔹 Nullable Type (C#)
+
+**Definition:**  
+A nullable type allows a **value type** (like `int`, `bool`, `double`) to store **null** values.  
+It is denoted using the `?` symbol.
+
+**Example:**
+```csharp
+int? age = null;
+age = 25;
+```
+# int.Parse vs Convert.ToInt32
+| Feature / Method | `int.Parse()` | `Convert.ToInt32()` | `Convert.ToInt64()` | `long.Parse()` | `int.TryParse()` |
+|----------------|---------------|---------------------|---------------------|---------------|------------------|
+| Target type | `int` (32-bit) | `int` (32-bit) | `long` (64-bit) | `long` (64-bit) | `int` (32-bit) |
+| Accepts `null` | ❌ Exception | ✅ Returns `0` | ✅ Returns `0` | ❌ Exception | ✅ Returns `false` |
+| Input types | `string` only | Many types | Many types | `string` only | `string` only |
+| Throws exception | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes | ❌ No |
+| Return on failure | Exception | Exception | Exception | Exception | `false` |
+| Range | −2.1B to +2.1B | −2.1B to +2.1B | −9.2E18 to +9.2E18 | −9.2E18 to +9.2E18 | −2.1B to +2.1B |
+| Safer to use | ❌ | ✅ | ✅ | ❌ | ✅✅ Best |
+---
+
+## 🔹 Extension Method (C#)
+
+### Definition:
+An extension method allows you to add new methods to an existing type without modifying its source code or using inheritance.
+
+### Rules:
+- Must be defined in a **static class**
+- Method must be **static**
+- Uses the **this** keyword before the first parameter
+---
+## 🔹 Static Class (C#)
+
+### Definition:
+A static class is a class that **cannot be instantiated** and is used to contain **only static members** such as methods, variables, and properties.
+
+### Key Points:
+- Cannot create objects of a static class
+- Contains only static members
+- Cannot be inherited
+- Used for utility or helper classes
+
+### Example:
+```csharp
+static class MathUtility
+{
+    public static int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
+
+// Usage
+int result = MathUtility.Add(10, 20);
+```
+---
+## 🔹 Object Initializer (C#)
+
+### Definition:
+An object initializer allows you to **assign values to an object’s properties or fields at the time of object creation**, without calling a constructor explicitly.
+
+### Key Points:
+- Improves code readability
+- No need to write multiple assignment statements
+- Uses curly braces `{ }`
+- Calls the default constructor automatically
+
+### Example:
+```csharp
+class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+Student s = new Student
+{
+    Id = 1,
+    Name = "Rahul"
+};
+```
+---
+## Anominous types: 
+- An anonymous type is a class created on the fly without a named class definition, mainly used to store a set of read-only properties in a single object.
+---
+## Partial types:
+- A partial type allows a class, struct, or interface to be split across multiple files. At compile time, all parts are combined into a single type.
+---
+## Valued-Types:
+- Value types store the actual data directly in memory. Each variable has its own copy of the data.
+
+## Refernce-Types
+- Reference types store a reference (address) to the actual data in memory. Multiple variables can refer to the same object.
+
+## 🔹 Structure (struct) in C#
+
+### Definition:
+A structure is a **value type** used to group related variables of different data types under a single name.
+
+### Key Points:
+- Value type
+- Stored on stack
+- Does not support inheritance
+- Can have methods, constructors, and properties
+
+### Example:
+```csharp
+struct Student
+{
+    public int Id;
+    public string Name;
+
+    public void Display()
+    {
+        Console.WriteLine(Id + " " + Name);
+    }
+}
+```
+---
+## 🔹 Enum (Enumeration) in C#
+
+### Definition:
+An enum is a **value type** used to define a set of **named constant values**.
+
+### Key Points:
+- Improves code readability  
+- Underlying type is `int` by default  
+- Values are constant  
+
+### Example:
+```csharp
+enum Days
+{
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday
+}
+```
+---
+## 🔹 is Operator (C#)
+
+### Definition:
+The `is` operator is used to **check whether an object is of a specific type**.  
+It returns **true or false**.
+
+### Explanation:
+- Performs type checking
+- Safe and fast
+- Commonly used in conditional statements
+
+### Example:
+```csharp
+object obj = "Hello";
+
+if (obj is string)
+{
+    Console.WriteLine("obj is a string");
+}
+```
+---
+## 🔹 as Operator (C#)
+
+### Definition:
+The `as` operator is used for **safe type casting**.  
+If the conversion fails, it returns **null** instead of throwing an exception.
+
+### Explanation:
+- Works only with **reference types** and **nullable types**
+- Does **not throw an exception** on failure
+- Requires **null checking** after use
+
+### Example:
+```csharp
+object obj = "Hello";
+
+string str = obj as string;
+
+if (str != null)
+{
+    Console.WriteLine(str.ToUpper());
+}
+```
+---
 ## Arcitecture use in c# coding
 1. Monolithic layer
 2. Model layer
@@ -486,4 +695,11 @@ for(int i = 0; i < n; i++)
 | O(2ⁿ) | Exponential |
 ---
 
-## 
+#  Annotation vs Reflection
+| Feature | Annotation (Attribute) | Reflection |
+|-------|------------------------|------------|
+| What it does | Adds metadata | Reads metadata |
+| Time | Compile time | Runtime |
+| Purpose | Describe code | Inspect / use description |
+
+#
