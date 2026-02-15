@@ -1,0 +1,12 @@
+CREATE DATABASE CollegeDB;
+GO
+USE CollegeDB;
+
+DROP TABLE IF EXISTS Students;
+CREATE TABLE Students
+(
+    Id INT PRIMARY KEY IDENTITY,
+    Name VARCHAR(50),
+    Email VARCHAR(50)
+);
+

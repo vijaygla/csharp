@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\v\\BridgeLabz-Training\\collection-csharp-practice\\gcr-codebase\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj": {}
+    "C:\\v\\csharp\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj": {}
   },
   "projects": {
-    "C:\\v\\BridgeLabz-Training\\collection-csharp-practice\\gcr-codebase\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj": {
+    "C:\\v\\csharp\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\v\\BridgeLabz-Training\\collection-csharp-practice\\gcr-codebase\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj",
+        "projectUniqueName": "C:\\v\\csharp\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj",
         "projectName": "CalculatorTesting.Core",
-        "projectPath": "C:\\v\\BridgeLabz-Training\\collection-csharp-practice\\gcr-codebase\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj",
+        "projectPath": "C:\\v\\csharp\\regex\\CalculatorTesting\\CalculatorTesting.Core\\CalculatorTesting.Core.csproj",
         "packagesPath": "C:\\Users\\pmdhrs\\.nuget\\packages\\",
-        "outputPath": "C:\\v\\BridgeLabz-Training\\collection-csharp-practice\\gcr-codebase\\regex\\CalculatorTesting\\CalculatorTesting.Core\\obj\\",
+        "outputPath": "C:\\v\\csharp\\regex\\CalculatorTesting\\CalculatorTesting.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pmdhrs\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\pmdhrs\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
