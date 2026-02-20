@@ -27,28 +27,33 @@ public class Utility
     public void GroupByBrand()
     {
         Dictionary<string, List<Bike>> brandGroup = new Dictionary<string, List<Bike>>();
-
-        foreach(KeyValuePair<int, Bike> item in Program.sortedDict)
+        if(brandGroup.Count == 0)
         {
-            string brand = item.Value.Brand;
+            Console.WriteLine("===> No Bike Exist");
+        }
+
+        foreach(var kv in Program.sortedDict)
+        {
+            string brand = kv.Value.Brand;
 
             if (!brandGroup.ContainsKey(brand))
             {
-                brandGroup[brand] = new List<Bike>();
+                List<Bike> list = new List<Bike>();
+                brandGroup[brand] = list;
             }
 
-            brandGroup[brand].Add(item.Value);
+            brandGroup[brand].Add(kv.Value);
         }
 
-        foreach(var g in brandGroup)
+        foreach(var kv in brandGroup)
         {
-            Console.WriteLine("Brand : " + g.Key);
+            Console.WriteLine("Brand : " + kv.Key);
 
-            foreach(Bike b in g.Value)
+            foreach(var item in kv.Value)
             {
-                Console.WriteLine($"Model : {b.Model} | PricePerDay : {b.PricePerDay}");
+                Console.WriteLine($"Model : {item.Model} | PricePerDay : {item.PricePerDay}");
             }
-            Console.WriteLine();
+            Console.WriteLine(); 
         }
     }
 }
@@ -102,13 +107,12 @@ public class Program
 
 
 
-/*
-🚲 Scenario: CityRide – Bike Rental Management System
+/* Scenario: CityRide – Bike Rental Management System
 
 CityRide Rentals provides bikes on rent to customers on a daily basis.
 The manager wants a simple console-based application to:
 
-Add new bike details (Model, Brand, Price Per Day).
+Add new bike details (Brand, Model, Price Per Day).
 
 Group bikes brand-wise to easily view available bikes of each brand.
 

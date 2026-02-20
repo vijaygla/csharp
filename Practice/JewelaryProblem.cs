@@ -22,6 +22,7 @@ class Utility
     }
 }
 
+
 class Program
 {
     public static Jewelary jewelary = new Jewelary();

@@ -47,30 +47,51 @@ public class Utility
     }
 
     // average score per subject
+    // public Dictionary<string, double> AverageScorePerSubject()
+    // {
+    //     Dictionary<string, double> averageResult = new Dictionary<string, double>();
+    //     Dictionary<string, int> totalScore = new Dictionary<string, int>();
+    //     Dictionary<string, int> count = new Dictionary<string, int>();
+
+    //     foreach (var item in Program.sortedDict)
+    //     {
+    //         Student record = item.Value;
+
+    //         if(!totalScore.ContainsKey(record.Subject))
+    //         {
+    //             totalScore[record.Subject] = 0;
+    //             count[record.Subject] = 0;
+    //         }
+    //         totalScore[record.Subject] += record.Score;
+    //         count[record.Subject]++;
+    //     }
+
+    //     foreach(var subject in totalScore.Keys)
+    //     {
+    //         averageResult[subject] = (double)totalScore[subject] / count[subject]; 
+    //     }
+    //     return averageResult;
+    // }
+
     public Dictionary<string, double> AverageScorePerSubject()
     {
-        Dictionary<string, double> averageResult = new Dictionary<string, double>();
-        Dictionary<string, int> totalScore = new Dictionary<string, int>();
-        Dictionary<string, int> count = new Dictionary<string, int>();
+        Dictionary<string, double> result = new Dictionary<string, double>();
+        double averageSubjectWise = 0;
 
-        foreach (var item in Program.sortedDict)
+        Utility utility = new Utility();
+        var dict = utility.GroupByStudent();
+
+        foreach(var kv in dict)
         {
-            Student record = item.Value;
-
-            if(!totalScore.ContainsKey(record.Subject))
+            foreach(var l in kv.Value)
             {
-                totalScore[record.Subject] = 0;
-                count[record.Subject] = 0;
+                averageSubjectWise += l.Score;
             }
-            totalScore[record.Subject] += record.Score;
-            count[record.Subject]++;
+            averageSubjectWise /= kv.Value.Count;
+            result[kv.Key] = averageSubjectWise;
         }
 
-        foreach(var subject in totalScore.Keys)
-        {
-            averageResult[subject] = (double)totalScore[subject] / count[subject]; 
-        }
-        return averageResult;
+        return result;
     }
 
     // TopScorer
