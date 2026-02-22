@@ -1,0 +1,16 @@
+CREATE DATABASE EmployeeDB;
+GO
+
+USE EmployeeDB;
+GO
+
+DROP TABLE if EXISTS Employees
+CREATE TABLE Employees
+(
+    EmployeeId INT IDENTITY(1,1) PRIMARY KEY,
+    EmployeeName NVARCHAR(100) NOT NULL,
+    Age INT NOT NULL,
+    Email NVARCHAR(150) NOT NULL,
+    Salary DECIMAL(18,2) NOT NULL
+);
+GO

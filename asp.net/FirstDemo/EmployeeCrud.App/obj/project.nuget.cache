@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "D5uuC116Mbg=",
+  "success": true,
+  "projectFilePath": "C:\\v\\csharp\\asp.net\\FirstDemo\\EmployeeCrud.App\\EmployeeCrud.App.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pmdhrs\\.nuget\\packages\\system.net.http.json\\10.0.3\\system.net.http.json.10.0.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference System.Net.Http.Json will not be pruned. Consider removing this package from your dependencies, as it is likely unnecessary.",
+      "projectPath": "C:\\v\\csharp\\asp.net\\FirstDemo\\EmployeeCrud.App\\EmployeeCrud.App.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\v\\csharp\\asp.net\\FirstDemo\\EmployeeCrud.App\\EmployeeCrud.App.csproj",
+      "libraryId": "System.Net.Http.Json",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\bin\Debug\net10.0\EmployeeCrud.App.exe
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\bin\Debug\net10.0\EmployeeCrud.App.deps.json
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\bin\Debug\net10.0\EmployeeCrud.App.runtimeconfig.json
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\bin\Debug\net10.0\EmployeeCrud.App.dll
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\bin\Debug\net10.0\EmployeeCrud.App.pdb
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.GeneratedMSBuildEditorConfig.editorconfig
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.AssemblyInfoInputs.cache
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.AssemblyInfo.cs
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.csproj.CoreCompileInputs.cache
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.sourcelink.json
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.dll
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\refint\EmployeeCrud.App.dll
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.pdb
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\EmployeeCrud.App.genruntimeconfig.cache
+C:\v\csharp\asp.net\FirstDemo\EmployeeCrud.App\obj\Debug\net10.0\ref\EmployeeCrud.App.dll

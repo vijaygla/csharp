@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EmployeeCrud.Api/EmployeeCrud.Api.csproj" />
+  <Project Path="EmployeeCrud.App/EmployeeCrud.App.csproj" />
+</Solution>

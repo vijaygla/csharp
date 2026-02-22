@@ -15,111 +15,85 @@ public class Student
     }
 }
 
-// utility
 public class Utility
 {
-    // add student
+    // Add Student
     public void AddStudent(string name, string subject, int score)
     {
-        int key = Program.sortedDict.Count + 1;
+        int key = Program.SortedDict.Count + 1;
         Student student = new Student(name, subject, score);
-
-        Program.sortedDict.Add(key, student);
-        Console.WriteLine("Student add successfully");
+        Program.SortedDict.Add(key, student);
+        Console.WriteLine("Student added successfully");
     }
 
-    // GroupStudentBySubject
-    public SortedDictionary<string, List<Student>> GroupStudentBySubject()
+    // Group by Subject
+    public Dictionary<string, List<Student>> GroupStudentBySubject()
     {
-        SortedDictionary<string, List<Student>> result = new SortedDictionary<string, List<Student>>();
+        Dictionary<string, List<Student>> result = new Dictionary<string, List<Student>>();
 
-        foreach(var item in Program.sortedDict)
+        foreach (var kv in Program.SortedDict)
         {
-            Student record = item.Value;
+            var student = kv.Value;
 
-            if(!result.ContainsKey(record.Subject))
+            if (!result.ContainsKey(student.Subject))
             {
-                result[record.Subject] = new List<Student>();
+                result[student.Subject] = new List<Student>();
             }
-            result[record.Subject].Add(record);
+
+            result[student.Subject].Add(student);
         }
+
         return result;
     }
 
-    // average score per subject
-    // public Dictionary<string, double> AverageScorePerSubject()
-    // {
-    //     Dictionary<string, double> averageResult = new Dictionary<string, double>();
-    //     Dictionary<string, int> totalScore = new Dictionary<string, int>();
-    //     Dictionary<string, int> count = new Dictionary<string, int>();
-
-    //     foreach (var item in Program.sortedDict)
-    //     {
-    //         Student record = item.Value;
-
-    //         if(!totalScore.ContainsKey(record.Subject))
-    //         {
-    //             totalScore[record.Subject] = 0;
-    //             count[record.Subject] = 0;
-    //         }
-    //         totalScore[record.Subject] += record.Score;
-    //         count[record.Subject]++;
-    //     }
-
-    //     foreach(var subject in totalScore.Keys)
-    //     {
-    //         averageResult[subject] = (double)totalScore[subject] / count[subject]; 
-    //     }
-    //     return averageResult;
-    // }
-
+    // Average Score per Subject
     public Dictionary<string, double> AverageScorePerSubject()
     {
         Dictionary<string, double> result = new Dictionary<string, double>();
-        double averageSubjectWise = 0;
 
-        Utility utility = new Utility();
-        var dict = utility.GroupByStudent();
+        var dict = GroupStudentBySubject();
 
-        foreach(var kv in dict)
+        foreach (var kv in dict)
         {
-            foreach(var l in kv.Value)
+            double totalScore = 0;  // Reset inside loop
+
+            foreach (var v in kv.Value)
             {
-                averageSubjectWise += l.Score;
+                totalScore += v.Score;
             }
-            averageSubjectWise /= kv.Value.Count;
-            result[kv.Key] = averageSubjectWise;
+
+            result[kv.Key] = totalScore / kv.Value.Count;
         }
 
         return result;
     }
 
-    // TopScorer
+    // Top Scorer
     public Student? TopScorer()
     {
-        Student? top = null;
+        Student? topperStudent = null;
 
-        foreach (var item in Program.sortedDict)
+        foreach (var kv in Program.SortedDict)
         {
-            if (top == null || item.Value.Score > top.Score)
+            if (topperStudent == null || kv.Value.Score > topperStudent.Score)
             {
-                top = item.Value;
+                topperStudent = kv.Value;
             }
         }
 
-        return top;
+        return topperStudent;
     }
 
-    // Filter by minimum score
-    public List<Student> FilterScoreByMinimumScore(int minScore)
+    // Filter Student by Min Score
+    public List<Student> FilterStudentByMinScore(int minScore)
     {
         List<Student> result = new List<Student>();
 
-        foreach(var item in Program.sortedDict)
+        foreach (var kv in Program.SortedDict)
         {
-            if(item.Value.Score >= minScore)
+            if (kv.Value.Score >= minScore)
             {
-                result.Add(item.Value);
+                result.Add(kv.Value);
             }
         }
 
@@ -127,22 +101,23 @@ public class Utility
     }
 }
 
-// main class
 public class Program
 {
-    public static SortedDictionary<int, Student> sortedDict = new SortedDictionary<int, Student>();
+    public static SortedDictionary<int, Student> SortedDict = new SortedDictionary<int, Student>();
+
     static void Main()
     {
         Utility utility = new Utility();
 
         while (true)
         {
+            Console.WriteLine("=== Student Exam System ===");
             Console.WriteLine("1. Add Student");
-            Console.WriteLine("2. Group Student by subject");
-            Console.WriteLine("3. Average score per subject");
-            Console.WriteLine("4. Top Scorer");
-            Console.WriteLine("5. Filter score by minimum score");
-            Console.WriteLine("6. exit");
+            Console.WriteLine("2. GroupStudentBySubject");
+            Console.WriteLine("3. AverageScorePerSubject");
+            Console.WriteLine("4. TopScorer");
+            Console.WriteLine("5. Filter Score by Minimum Score");
+            Console.WriteLine("6. Exit");
 
             Console.WriteLine("Enter choice");
             int choice = int.Parse(Console.ReadLine());
@@ -163,59 +138,64 @@ public class Program
                     break;
 
                 case 2:
-                    var grouped = utility.GroupStudentBySubject();
+                    var groupStudentBySubject = utility.GroupStudentBySubject();
 
-                    foreach(var kv in grouped)
+                    foreach (var kv in groupStudentBySubject)
                     {
-                        Console.WriteLine(kv.Key);
+                        Console.WriteLine($"Subject : {kv.Key}");
 
-                        foreach(var record in  kv.Value)
+                        foreach (var v in kv.Value)
                         {
-                            Console.WriteLine($"Name : {record.Name} | Score : {record.Score}");
+                            Console.WriteLine($"Name : {v.Name} | Score : {v.Score}");
                         }
+                        Console.WriteLine();
                     }
                     break;
-                
-                case 3:
-                    var averages = utility.AverageScorePerSubject();
 
-                    foreach(var average in averages)
+                case 3:
+                    var dict = utility.AverageScorePerSubject();
+
+                    foreach (var kv in dict)
                     {
-                        Console.WriteLine($"Subject : {average.Key} | Average Score : {average.Value}");
+                        Console.WriteLine($"Subject : {kv.Key} | Average Score : {kv.Value}");
                     }
+                    Console.WriteLine();
                     break;
-                
+
                 case 4:
-                    var topScorer = utility.TopScorer();
-                    if(topScorer != null)
-                        Console.WriteLine($"Topper Name : {topScorer.Name} | Topper Score : {topScorer.Score}");
+                    var topperStudent = utility.TopScorer();
+
+                    if (topperStudent != null)
+                    {
+                        Console.WriteLine($"Topper Name : {topperStudent.Name} | Topper Score : {topperStudent.Score}");
+                        Console.WriteLine();
+                    }
                     break;
 
                 case 5:
-                    Console.WriteLine("Enter minimum score");
+                    Console.WriteLine("Enter minScore");
                     int minScore = int.Parse(Console.ReadLine());
 
-                    var filtered = utility.FilterScoreByMinimumScore(minScore);
+                    var list = utility.FilterStudentByMinScore(minScore);
 
-                    foreach(var s in filtered)
+                    foreach (var v in list)
                     {
-                        Console.WriteLine($"Name : {s.Name} | Score : {s.Score}");
+                        Console.WriteLine($"Name : {v.Name} | Subject : {v.Subject} | Score : {v.Score}");
                     }
+                    Console.WriteLine();
                     break;
 
                 case 6:
-                    Console.WriteLine("Thank You");
+                    Console.WriteLine("Thank you");
                     return;
 
                 default:
                     Console.WriteLine("Invalid input");
                     break;
-            }            
+            }
         }
     }
 }
-
-
 
 
 
