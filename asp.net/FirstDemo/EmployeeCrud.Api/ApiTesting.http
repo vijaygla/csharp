@@ -1,0 +1,31 @@
+### Get All
+GET http://localhost:5195/api/employees
+
+### Get By Id
+GET http://localhost:5195/api/employees/1
+
+### Create
+POST http://localhost:5195/api/employees
+Content-Type: application/json
+
+{
+  "employeeName": "John Doe",
+  "age": 30,
+  "email": "john.doe@email.com",
+  "salary": 55000
+}
+
+### Update
+PUT http://localhost:5195/api/employees/4
+Content-Type: application/json
+
+{
+  "employeeId": 4,
+  "employeeName": "John Doe Updated",
+  "age": 31,
+  "email": "john.doe@email.com",
+  "salary": 65000
+}
+
+### Delete
+DELETE http://localhost:5195/api/employees/4

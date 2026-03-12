@@ -45,7 +45,7 @@ class Program
                     break;
 
                 case "2":
-                    int newPrice = Convert.ToInt32(nums[1]);
+                    int newPrice = int.Parse(nums[1]);
                     utility.UpdatePrice(newPrice);
                     break;
                 
@@ -56,13 +56,3 @@ class Program
         }
     }
 }
-
-
-/* Test case 1
-AB101 Ring 5000
-1              // No change print details
-2 6000         // update price and print details
-1 
-2 7000
-3
-*/

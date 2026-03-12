@@ -6,7 +6,7 @@ class StringValidation
 {
     public static List<int> Check(int n, string[] strings)
     {
-        List<int> ans = new List<int>();
+        List<int> result = new List<int>();
 
         for(int i=0; i < n; i++)
         {
@@ -17,15 +17,15 @@ class StringValidation
                     'a' <= input[0] && input[0] <= 'z' &&
                     '0' <= input[input.Length - 1] && input[input.Length - 1] <= '9')
             {
-                ans.Add(1);
+                result.Add(1);
             }
             else
             {
-                ans.Add(0);
+                result.Add(0);
             }
         }
 
-        return ans;
+        return result;
     }
 
     static void Main()
@@ -39,9 +39,9 @@ class StringValidation
             strings[i] = input;
         }
 
-        List<int> ans  = Check(n, strings);
+        List<int> result  = Check(n, strings);
 
-        foreach(int a in ans)
+        foreach(int a in result)
         {
             Console.WriteLine(a);
         }

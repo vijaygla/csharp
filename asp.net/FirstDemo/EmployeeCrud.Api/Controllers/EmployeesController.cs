@@ -34,23 +34,35 @@ public class EmployeesController : ControllerBase
 
     // POST
     [HttpPost]
-    public async Task<IActionResult> Create(Employee employee)
+    public async Task<ActionResult<Employee>> Create(Employee employee)
     {
         _context.Employees.Add(employee);
         await _context.SaveChangesAsync();
-        return Ok(employee);
+        return CreatedAtAction(nameof(Get), new { id = employee.EmployeeId }, employee);
     }
 
     // PUT
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, Employee employee)
     {
-        if (id != employee.EmployeeId) return BadRequest();
+        if (id != employee.EmployeeId) return BadRequest("ID mismatch");
+
+        var existingEmployee = await _context.Employees.AnyAsync(e => e.EmployeeId == id);
+        if (!existingEmployee) return NotFound();
 
         _context.Entry(employee).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
 
-        return Ok(employee);
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!await _context.Employees.AnyAsync(e => e.EmployeeId == id)) return NotFound();
+            throw;
+        }
+
+        return NoContent();
     }
 
     // DELETE
@@ -63,6 +75,6 @@ public class EmployeesController : ControllerBase
         _context.Employees.Remove(emp);
         await _context.SaveChangesAsync();
 
-        return Ok("Deleted Successfully");
+        return NoContent();
     }
 }
