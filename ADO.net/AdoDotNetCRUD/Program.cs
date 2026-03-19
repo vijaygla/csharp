@@ -102,7 +102,6 @@ class Program
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
-
             Console.WriteLine("Data delete successfully");
         }
     }
