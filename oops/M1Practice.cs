@@ -124,118 +124,135 @@
 // }
 
 // ================================================================================================
-// class Version
-// {
-//     public string VersionName { get; set; }
-//     public int FileSize { get; set; }
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
-//     public Version(string versionName, int fileSize)
-//     {
-//         VersionName = versionName;
-//         FileSize = fileSize;
-//     }
-// }
+class Version
+{
+    public string VersionName { get; set; }
+    public int FileSize { get; set; }
 
-// class Utility
-// {
-//     public Dictionary<string, List<Version>> dict = new Dictionary<string, List<Version>>();
-//     public void UploadFile(string fileName, string version, int fileSize)
-//     {
-//         if(!dict.ContainsKey(fileName))
-//         {
-//             dict[fileName] = new List<Version>();
-//         }
-//         foreach(var item in dict[fileName])
-//         {
-//             if(item.VersionName == version)
-//             {
-//                 return;
-//             }
-//         }
-//         dict[fileName].Add(new Version(version, fileSize));
-//     }
+    public Version(string versionName, int fileSize)
+    {
+        VersionName = versionName;
+        FileSize = fileSize;
+    }
+}
 
-//     public void FetchFile(string fileName)
-//     {
-//         if(!dict.ContainsKey(fileName))
-//         {
-//             Console.WriteLine("File Not Found");
-//             return;
-//         }
-//         var sorted = dict[fileName].OrderBy(v => v.FileSize).ThenBy(v => v.VersionName);
+class Utility
+{
+    public Dictionary<String, List<Version>> dict = new Dictionary<string, List<Version>>();
 
-//         foreach(var kv in sorted)
-//         {
-//             Console.WriteLine($"{fileName} {kv.VersionName} {kv.FileSize}");
-//         }
-//     }
+    // upload
+    public void Upload(string fileName, string versionName, int fileSize)
+    {
+        if (!dict.ContainsKey(fileName))
+        {
+            List<Version> version = new List<Version>();
+            dict[fileName] = version;
+        }
+        foreach (var v in dict[fileName])
+        {
+            if (v.VersionName == versionName)
+            {
+                return;
+            }
+        }
+        dict[fileName].Add(new Version(versionName, fileSize));
+    }
 
-//     public void LatestFile(string fileName)
-//     {
-//         if(!dict.ContainsKey(fileName))
-//         {
-//             Console.WriteLine($"File Not Found");
-//             return;
-//         }
-//         var list = dict[fileName];
-//         var lastFile = list[list.Count - 1];
+    // fetch
+    public void Fetch(string fileName)
+    {
+        if (!dict.ContainsKey(fileName))
+        {
+            Console.WriteLine("File Not Found");
+            return;
+        }
 
-//         Console.WriteLine($"{fileName} {lastFile.VersionName} {lastFile.FileSize}");
-//     }
+        var sorted = dict[fileName].OrderBy(v => v.FileSize).ThenBy(v => v.VersionName);
 
-//     public void TotalStorage(string fileName)
-//     {
-//         int totalStorage = 0;
-//         if(!dict.ContainsKey(fileName))
-//         {
-//             Console.WriteLine("File Not Found");
-//             return;
-//         }
-//         foreach(var v in dict[fileName])
-//         {
-//             totalStorage += v.FileSize;
-//         }
-//         Console.WriteLine($"{fileName} {totalStorage}");
-//     }
-// }
+        foreach (var kv in sorted)
+        {
+            Console.WriteLine($"{fileName} {kv.VersionName} {kv.FileSize}");
+        }
+    }
 
-// class Program
-// {
-//     static void Main()
-//     {
-//         Utility utility = new Utility();
-//         int n = int.Parse(Console.ReadLine());
-//         for(int i=0; i<n; i++)
-//         {
-//             string input = Console.ReadLine();
-//             string[] inputs = input.Split(' ');
+    // latest
+    public void Latest(string fileName)
+    {
+        if (!dict.ContainsKey(fileName))
+        {
+            Console.WriteLine("File Not Found");
+            return;
+        }
 
-//             if(inputs[0] == "UPLOAD")
-//             {
-//                 string fileName = inputs[1];
-//                 string version = inputs[2];
-//                 int fileSize = int.Parse(inputs[3]);
-//                 utility.UploadFile(fileName, version, fileSize);
-//             }
-//             else if (inputs[0] == "FETCH")
-//             {
-//                 string fileName = inputs[1];
-//                 utility.FetchFile(fileName);
-//             }
-//             else if (inputs[0] == "LATEST")
-//             {
-//                 string fileName = inputs[1];
-//                 utility.LatestFile(fileName);
-//             }
-//             else if (inputs[0] == "TOTAL_STORAGE")
-//             {
-//                 string fileName = inputs[1];
-//                 utility.TotalStorage(fileName);
-//             }
-//         }
-//     }
-// }
-// ===================================================================================
+        var item = dict[fileName];
+        var lastItem = item[item.Count - 1];
+        Console.WriteLine($"{fileName} {lastItem.VersionName} {lastItem.FileSize}");
+    }
+
+    // TotalStorage
+    public void TotalStorage(string fileName)
+    {
+        if (!dict.ContainsKey(fileName))
+        {
+            Console.WriteLine("File Not Found");
+            return;
+        }
+        int totalStorage = 0;
+
+        foreach (var v in dict[fileName])
+        {
+            totalStorage += v.FileSize;
+        }
+        Console.WriteLine($"{fileName} {totalStorage}");
+    }
+}
+
+
+class Program
+{
+    static void Main()
+    {
+        Utility utility = new Utility();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            string input = Console.ReadLine();
+
+            string[] inputs = input.Split(' ');
+            string operation = inputs[0];
+
+            if (operation == "UPLOAD")
+            {
+                string fileName = inputs[1];
+                string versionName = inputs[2];
+                int fileSize = int.Parse(inputs[3]);
+
+                utility.Upload(fileName, versionName, fileSize);
+            }
+            else if (operation == "FETCH")
+            {
+                string fileName = inputs[1];
+                utility.Fetch(fileName);
+            }
+            else if (operation == "LATEST")
+            {
+                string fileName = inputs[1];
+                utility.Latest(fileName);
+            }
+            else if (operation == "TOTAL_STORAGE")
+            {
+                string fileName = inputs[1];
+                utility.TotalStorage(fileName);
+            }
+        }
+    }
+}
+
+// ==================================================================================
 // Supermarket Store
 
 // class Electronics
@@ -397,7 +414,7 @@ class FoodFestival
     public int Stalls { get; set; }
     public int EntryFee { get; set; }
 
-    public FoodFestival(string name, string location, int date, string cuisine, int stalls, int enrtyFee)
+    public FoodFestival(string name, string location, int date, string cuisine, int stalls, int entryFee)
     {
         Name = name;
         Location = location;
@@ -432,9 +449,62 @@ class Utility
     List<MusicFestival> list1 = new List<MusicFestival>();
     List<FoodFestival> list2 = new List<FoodFestival>();
     List<ArtFestival> list3 = new List<ArtFestival>();
-    List<string> orderList = new List<string>();
+    
+    public void AddMusicFestival(string name, string location, int date, string headLine, string musicGenere, int ticketPrice)
+    {
+        list1.Add(new MusicFestival(name, location, date, headLine, musicGenere, ticketPrice));
+    }
+    public void AddFoodFestival(string name, string location, int date, string cuisine, int stalls, int entryFee)
+    {
+        list2.Add(new FoodFestival(name, location, date, cuisine, stalls, entryFee));
+    }
+    public void AddArtFestival(string name, string location, int date, string artType, int artist, int exhibitionFee)
+    {
+        list3.Add(new ArtFestival(name, location, date, artType, artist, exhibitionFee));
+    }
 
-
+    public void DisplayFestivalDetails(string name)
+    {
+        foreach(var item in list1)
+        {
+            if(item.Name == name)
+            {
+                Console.WriteLine($"Festival Name: {item.Name}");
+                Console.WriteLine($"Location: {item.Location}");
+                Console.WriteLine($"Date: {item.Date}");
+                Console.WriteLine($"Headliner: {item.HeadLine}");
+                Console.WriteLine($"Music Genre: {item.MusicGenere}");
+                Console.WriteLine($"Ticket Price: {item.TicketPrice}");
+                return;
+            }
+        }
+        foreach(var item in list2)
+        {
+            if(item.Name == name)
+            {
+                Console.WriteLine($"Festival Name: {item.Name}");
+                Console.WriteLine($"Location: {item.Location}");
+                Console.WriteLine($"Date: {item.Date}");
+                Console.WriteLine($"Cuisine: {item.Cuisine}");
+                Console.WriteLine($"Number of Stalls: {item.Stalls}");
+                Console.WriteLine($"Entry Fee: {item.EntryFee}");
+                return;
+            }
+        }
+        foreach(var item in list3)
+        {
+            if(item.Name == name)
+            {
+                Console.WriteLine($"Festival Name: {item.Name}");
+                Console.WriteLine($"Location: {item.Location}");
+                Console.WriteLine($"Date: {item.Date}");
+                Console.WriteLine($"Art Type: {item.ArtType}");
+                Console.WriteLine($"Number of Artists: {item.Artist}");
+                Console.WriteLine($"Exhibition Fee: {item.ExhibitionFee}");
+                return;
+            }
+        }
+    }
 }
 class Program
 {
@@ -459,7 +529,7 @@ class Program
 
                     utility.AddMusicFestival(name, location, date, headLine, musicGenere, ticketPrice);
                 }
-                else if(inputs[1] == "Food")
+                else if (inputs[1] == "FOOD")
                 {
                     string name = inputs[2];
                     string location = inputs[3];
@@ -484,7 +554,8 @@ class Program
             }
             else if(inputs[0] == "DISPLAY_DETAILS")
             {
-                
+                string name = inputs[1];
+                utility.DisplayFestivalDetails(name);
             }
             else if(inputs[0] == "EXIT")
             {

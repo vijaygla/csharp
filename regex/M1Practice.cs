@@ -34,86 +34,76 @@
 // }
 
 // // ===================================================================
-// using System.Text.RegularExpressions;
-// class Program
-// {
-//     static string ValidateInput(string input)
-//     {
-//         /*
-//         string datePattern = @"^\$\{DATE:(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(0[1-9]|1[0-2])-(20[0-9]{2})\}$";
-//         string upperPattern = @"^\$\{UPPER:[A-Za-z]+\}$";
-//         string lowerPattern = @"^\$\{LOWER:[A-Za-z]+\}$";
-//         string repeatPattern = @"^\$\{REPEAT:[A-Za-z]+\,[1-5]\}$";
-//         */
-//         string pattern = @"\$\{(.*?):(.*?)\}";
-//         MatchCollection matches = Regex.Matches(input, pattern);
+using System.Text.RegularExpressions;
 
-//         foreach(Match m in matches)
-//         {
-//             string full = m.Value;
-//             string type = m.Groups[1].Value;
-//             string value = m.Groups[2].Value;
+class Program
+{
+    static string ValidateString(string input)
+    {
+        string placeHolderPattern = @"\$\{([A-Z]+):([A-Za-z0-9,-]+)\}";
+        MatchCollection matches = Regex.Matches(input, placeHolderPattern);
 
-//             string replacement = "INVALID";
+        foreach (Match m in matches)
+        {
+            string placeHolder = m.Value;
+            string type = m.Groups[1].Value;
+            string value = m.Groups[2].Value;
 
-//             if(type == "UPPER")
-//             {
-//                 if(Regex.IsMatch(value, @"^[A-Za-z]+$"))
-//                 {
-//                     replacement = value.ToUpper();
-//                 }
-//             }
-//             else if (type == "LOWER")
-//             {
-//                 if (Regex.IsMatch(value, @"^[A-Za-z]+$"))
-//                 {
-//                     replacement = value.ToLower();
-//                 }
-//             }
-//             else if(type == "DATE")
-//             {
-//                 if(Regex.IsMatch(value, @"^(0[1-9]|1[0-9]|2[0-9]|3[0-1])-(0[1-9]|1[0-2])-(20[0-9]{2})$"))
-//                 {
-//                     string[] arr = value.Split('-');
-//                     string year = arr[2];
-//                     string month = arr[1];
-//                     string day = arr[0];
+            string result = "INVALID";
 
-//                     replacement = year + "/" + month + "/" + day;
-//                 }
-//             }
-//             else if(type == "REPEAT")
-//             {
-//                 if(Regex.IsMatch(value, @"^[A-Za-z]+\,[1-5]$"))
-//                 {
-//                     replacement = "";
-//                     string[] arr = value.Split(',');
-//                     int count = int.Parse(arr[1]);
-//                     string word = arr[0];
+            if (type == "DATE")
+            {
+                string datePattern = @"^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(20[0-9]{2})$";
+                if (Regex.IsMatch(value, datePattern))
+                {
+                    string[] dateSplit = value.Split('-');
+                    result = $"{dateSplit[2]}/{dateSplit[1]}/{dateSplit[0]}";
+                }
+            }
+            else if (type == "UPPER")
+            {
+                if (Regex.IsMatch(value, @"^[A-Za-z]+$"))
+                {
+                    result = value.ToUpper();
+                }
+            }
+            else if (type == "LOWER")
+            {
+                if (Regex.IsMatch(value, @"^[A-Za-z]+$"))
+                {
+                    result = value.ToLower();
+                }
+            }
+            else if (type == "REPEAT")
+            {
+                string[] repeatSplit = value.Split(',');
+                string word = repeatSplit[0];
+                int count = int.Parse(repeatSplit[1]);
 
-//                     for(int i=0; i<count; i++)
-//                     {
-//                         replacement += word;
-//                     }
-//                 }
-//             }
-//             input = input.Replace(full, replacement);
-//         }
-//         return input;
-//     }
-//     static void Main()
-//     {
-//         Console.WriteLine("Enter number of input");
-//         int n = int.Parse(Console.ReadLine());
-
-//         for (int i = 0; i < n; i++)
-//         {
-//             string input = Console.ReadLine();
-//             Console.WriteLine(ValidateInput(input));
-//         }
-//     }
-// }
-
+                if (Regex.IsMatch(value, @"^[A-Za-z]+\,[1-5]$"))
+                {
+                    string temp = "";
+                    for (int i = 0; i < count; i++)
+                    {
+                        temp += word;
+                    }
+                    result = temp;
+                }
+            }
+            input = input.Replace(placeHolder, result);
+        }
+        return input;
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            string input = Console.ReadLine();
+            Console.WriteLine(ValidateString(input));
+        }
+    }
+}
 
 // // ===========================================================================
 // using System.Text.RegularExpressions;
@@ -193,73 +183,66 @@
 
 
 // ================================================================
-using System.Text.RegularExpressions;
-class Program
-{
-    static string ValidateInput(string input)
-    {
-        string[] inputs = input.Split('|');
-        if (inputs.Length != 5)
-        {
-            return "NON-COMPLIANT RECORD";
-        }
-        string first = inputs[0];
-        string second = inputs[1];
-        string third = inputs[2];
-        string forth = inputs[3];
-        string fifth = inputs[4];
+// using System.Text.RegularExpressions;
 
-        // validate first
-        if (!Regex.IsMatch(first, @"^SHIP-[1-9][0-9]{5}$"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
-        string digit = first.Substring(5); // start index 5
-        if (Regex.IsMatch(digit, @"([0-9])\1\1\1"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
+// class Program
+// {
+//     static bool IsLeapYear(int year)
+//     {
+//         return year % 4 == 0;
+//     }
 
-        // validate second
-        if(!Regex.IsMatch(second, @"^(20[0-9]{2})-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
+//     static string ValidateString(string input)
+//     {
+//         string[] inputs = input.Split('|');
+//         if (inputs.Length != 5) return "NON-COMPLIANT RECORD";
+//         string first = inputs[0];
+//         string second = inputs[1];
+//         string third = inputs[2];
+//         string forth = inputs[3];
+//         string fifth = inputs[4];
 
-        // validate third
-        if(!Regex.IsMatch(third, @"^(AIR|SEA|ROAD|RAIL|EXPRESS|FREIGHT)$"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
+//         // validate shipment code
+//         if (!Regex.IsMatch(first, @"^SHIP-[1-9]\d{5}$")) return "NON-COMPLIANT RECORD";
 
-        // validate forth
-        if(!Regex.IsMatch(forth, @"^(0|[1-9][0-9]+)(\.[0-9]{1,2})$"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
-        double forth_Weight = double.Parse(forth);
-        if(forth_Weight > 999999.99)
-        {
-            return "NON-COMPLIANT RECORD";
-        }
+//         string[] firstSplit = first.Split('-');
+//         string digit = firstSplit[1];
+//         if (Regex.IsMatch(digit, @"(\d)\1\1\1")) return "NON-COMPLIANT RECORD";
 
-        // validate fifth
-        if (!Regex.IsMatch(fifth, @"^(DELIVERED|CANCELLED|IN_TRANSIT)$"))
-        {
-            return "NON-COMPLIANT RECORD";
-        }
+//         // valdidate date
+//         if (!Regex.IsMatch(second, @"^\d{4}-\d{2}-\d{2}$")) return "NON-COMPLIANT RECORD";
 
-        return "COMPLIANT RECORD";
-    }
-    static void Main()
-    {
-        Console.WriteLine("Enter number of input");
-        int n = int.Parse(Console.ReadLine());
+//         string[] secondSplit = second.Split('-');
+//         int year = int.Parse(secondSplit[0]);
+//         int month = int.Parse(secondSplit[1]);
+//         int day = int.Parse(secondSplit[2]);
 
-        for (int i = 0; i < n; i++)
-        {
-            string input = Console.ReadLine();
-            Console.WriteLine(ValidateInput(input));
-        }
-    }
-}
+//         if (year < 2000 || year > 2099) return "NON-COMPLIANT RECORD";
+//         if (month < 1 || month > 12) return "NON-COMPLIANT RECORD";
+//         int[] days = { 31, IsLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//         if (day < 1 || day > days[month - 1]) return "NON-COMPLIANT RECORD";
+
+//         // validate mode
+//         if (!Regex.IsMatch(third, @"^(AIR|SEA|ROAD|RAIL|EXPRESS|FREIGHT)$")) return "NON-COMPLIANT RECORD";
+
+//         // validate weight
+//         if (!Regex.IsMatch(forth, @"^(0|[1-9]\d{0,5})(\.\d{1,2})?$")) return "NON-COMPLIANT RECORD";
+//         double weight = double.Parse(forth);
+//         if (weight < 0 || weight > 999999.99) return "NON-COMPLIANT RECORD";
+
+//         // validate delevery status
+//         if (!Regex.IsMatch(fifth, @"^(DELIVERED|CANCELLED|IN_TRANSIT)$")) return "NON-COMPLIANT RECORD";
+
+//         return "COMPLIANT RECORD";
+//     }
+
+//     static void Main(String[] args)
+//     {
+//         int n = int.Parse(Console.ReadLine());
+//         for (int i = 0; i < n; i++)
+//         {
+//             string input = Console.ReadLine();
+//             Console.WriteLine(ValidateString(input));
+//         }
+//     }
+// }
