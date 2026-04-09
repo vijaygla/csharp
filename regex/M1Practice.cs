@@ -231,3 +231,33 @@ class Program
 }
 
 // ====================================================================
+class Program
+{
+    public static string ValidateString(string input)
+    {
+        // Rule 1: Mask IPv4 Addresses
+        string ipPattern = @"IP:(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)";
+        input = Regex.Replace(input, ipPattern, "IP:***.***.***.$4");
+
+        // Rule 2: Mask Email Username
+        string emailPattern = @"Email:([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})";
+        input = Regex.Replace(input, emailPattern, "Email:****@$2");
+
+        // Rule 3: Collapse Repeated Error Codes
+        string errorPattern = @"\b(ERROR\d+)( \1\b)+";
+        input = Regex.Replace(input, errorPattern, "$1");
+
+        // Rule 4: Normalize Timestamp
+        string datePattern = @"\[(\d{2})/(\d{2})/(\d{4}) (\d{2}:\d{2}:\d{2})\]";
+        input = Regex.Replace(input, datePattern, "[$3-$2-$1 $4]");
+
+        return input;
+    }
+
+    static void Main()
+    {
+        string input = Console.ReadLine();
+
+        Console.WriteLine(ValidateString(input));
+    }
+}
