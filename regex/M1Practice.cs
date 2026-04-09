@@ -1,7 +1,7 @@
 // The special regex characters (metacharacters) are:
 // . ^ $ *+ ? ( )[ ] { } | \ 
 
-class EmailValidation
+class Program
 {
     static void Main()
     {
@@ -30,7 +30,7 @@ class EmailValidation
     }
 }
 
-// ===================================================================
+// ===============================================================
 class Program
 {
     static string ValidateString(string input)
@@ -39,8 +39,8 @@ class Program
         MatchCollection matches = Regex.Matches(input, placeHolderPattern);
 
         foreach (Match m in matches)
-        {
-            string placeHolder = m.Value;
+        {   
+            string typeValue = m.Value;
             string type = m.Groups[1].Value;
             string value = m.Groups[2].Value;
 
@@ -71,12 +71,11 @@ class Program
             }
             else if (type == "REPEAT")
             {
-                string[] repeatSplit = value.Split(',');
-                string word = repeatSplit[0];
-                int count = int.Parse(repeatSplit[1]);
-
-                if (Regex.IsMatch(value, @"^[A-Za-z]+\,[1-5]$"))
+                if (Regex.IsMatch(value, @"^[A-Za-z]+,[1-5]$"))
                 {
+                    string[] repeatSplit = value.Split(',');
+                    string word = repeatSplit[0];
+                    int count = int.Parse(repeatSplit[1]);
                     string temp = "";
                     for (int i = 0; i < count; i++)
                     {
@@ -85,7 +84,7 @@ class Program
                     result = temp;
                 }
             }
-            input = input.Replace(placeHolder, result);
+            input = input.Replace(typeValue, result);
         }
         return input;
     }
@@ -100,83 +99,75 @@ class Program
     }
 }
 
-// ===========================================================================
+// ===============================================================
 class Program
 {
-    static void Main()
+    public static string ValidateString(string input)
     {
-        Console.WriteLine("Enter number of input");
-        int n = int.Parse(Console.ReadLine());
-
-        for(int i=0; i<n; i++)
+        if (input.Length < 6)
         {
-            string input = Console.ReadLine();
-            ValidateInput(input);
+            return "Invalid Input (length < 6)";
         }
-    }
-
-    static void ValidateInput(string input)
-    {
-        if(input.Length < 6)
+        if (Regex.IsMatch(input, @"\s"))
         {
-            Console.WriteLine("Invalid Input (length < 6)");
-            return;
+            return "Invalid Input (contains space)";
         }
-        if(Regex.IsMatch(input, @" ")) // @"\s"
+        if (Regex.IsMatch(input, @"\d"))
         {
-            Console.WriteLine("Invalid Input (contains space)");
-            return;
+            return "Invalid Input (contains digits)";
         }
-        if(Regex.IsMatch(input, @"\d"))
+        if (!Regex.IsMatch(input, @"^[A-Za-z]+$"))
         {
-            Console.WriteLine("Invalid Input (contains digits)");
+            return "Invalid Input (contains special character)";
         }
-        if(!Regex.IsMatch(input, @"[A-Za-z]+"))
-        {
-            Console.WriteLine("Invalid Input (contains special character)");
-        }
-
         input = input.ToLower();
-
         string filter = "";
 
-        for(int i=0; i<input.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
             int asciiValue = (int)input[i];
-            if(asciiValue % 2 != 0)
+            if (asciiValue % 2 != 0)
             {
                 filter += input[i];
             }
         }
-
-        if(filter.Length == 0)
+        if (filter.Length == 0)
         {
-            Console.WriteLine("Invalid Input (empty string)");
-            return;
+            return "Invalid Input (empty string)";
         }
-
-        char[] arr = filter.ToCharArray();
-        Array.Reverse(arr);
-
-        string reverse = new string(arr);
-
-        char[] newArr = reverse.ToCharArray();
-
-        for(int i=0; i<newArr.Length; i++)
+        string reverse = "";
+        for (int i = filter.Length - 1; i >= 0; i--)
         {
-            if(i % 2 == 0)
+            reverse += filter[i];
+        }
+        string result = "";
+        for (int i = 0; i < reverse.Length; i++)
+        {
+            if (i % 2 == 0)
             {
-                newArr[i] = char.ToUpper(newArr[i]);
+                result += char.ToUpper(reverse[i]);
+            }
+            else
+            {
+                result += reverse[i];
             }
         }
-        string result = new string(newArr);
+        return $"The generated key is - {result}";
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            string input = Console.ReadLine();
 
-        Console.WriteLine(result);
+            Console.WriteLine(ValidateString(input));
+        }
     }
 }
 
 
-// ================================================================
+// ===============================================================
 class Program
 {
     static bool IsLeapYear(int year)
@@ -199,7 +190,7 @@ class Program
 
         string[] firstSplit = first.Split('-');
         string digit = firstSplit[1];
-        if (Regex.IsMatch(digit, @"(\d)\1\1\1")) return "NON-COMPLIANT RECORD";
+        if (Regex.IsMatch(digit, @"(\d){\1\1\1}")) return "NON-COMPLIANT RECORD";
 
         // valdidate date
         if (!Regex.IsMatch(second, @"^\d{4}-\d{2}-\d{2}$")) return "NON-COMPLIANT RECORD";
@@ -218,7 +209,7 @@ class Program
         if (!Regex.IsMatch(third, @"^(AIR|SEA|ROAD|RAIL|EXPRESS|FREIGHT)$")) return "NON-COMPLIANT RECORD";
 
         // validate weight
-        if (!Regex.IsMatch(forth, @"^(0|[1-9]\d{0,5})(\.\d{1,2})?$")) return "NON-COMPLIANT RECORD";
+        if (!Regex.IsMatch(forth, @"^(0|[1-9]\d{0,5})(\.\d{2})?$")) return "NON-COMPLIANT RECORD";
         double weight = double.Parse(forth);
         if (weight < 0 || weight > 999999.99) return "NON-COMPLIANT RECORD";
 
@@ -239,3 +230,4 @@ class Program
     }
 }
 
+// ====================================================================
