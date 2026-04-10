@@ -81,6 +81,7 @@ class Utility
         Console.WriteLine($"{topperStudent.StudentName} {topperStudent.GetTotalScore()}");
     }
 }
+
 class Program
 {
     static void Main()
@@ -379,12 +380,12 @@ class Program
 // Supermarket Store
 class Product
 {
-    public string Type { get; set; }
-    public string Name { get; set; }
-    public double Price { get; set; }
-    public int Quantity { get; set; }
-    public int Warranty { get; set; }
-    public string Size { get; set; }
+    public string Type;
+    public string Name;
+    public double Price;
+    public int Quantity;
+    public int Warranty;
+    public string Size;
 }
 
 class Utility
@@ -463,137 +464,6 @@ class Program
     }
 }
 
-// ============================================================================================
-class Electronics
-{
-    public string ProductName { get; set; }
-    public double Price { get; set; }
-    public int Quantity { get; set; }
-    public int WarrantyPeriod { get; set; }
-
-    public Electronics(string productName, double price, int quantity, int warrantyPeriod)
-    {
-        ProductName = productName;
-        Price = price;
-        Quantity = quantity;
-        WarrantyPeriod = warrantyPeriod;
-    }
-}
-
-class Clothing
-{
-    public string ProductName { get; set; }
-    public double Price { get; set; }
-    public int Quantity { get; set; }
-    public string Size { get; set; }
-
-    public Clothing(string productName, double price, int quantity, string size)
-    {
-        ProductName = productName;
-        Price = price;
-        Quantity = quantity;
-        Size = size;
-    }
-}
-
-class Utility
-{
-    List<Electronics> list1 = new List<Electronics>();
-    List<Clothing> list2 = new List<Clothing>();
-    List<string> orderList = new List<string>();
-
-    // Add Product
-    public void AddElectronicsProduct(string productName, double price, int quantity, int warrantyPeriod)
-    {
-        Electronics electronics = new Electronics(productName, price, quantity, warrantyPeriod);
-        list1.Add(electronics);
-        orderList.Add("e");
-        Console.WriteLine($"Product added to inventory: {productName}");
-    }
-    public void AddClothingProduct(string productName, double price, int quantity, string Size)
-    {
-        Clothing clothing = new Clothing(productName, price, quantity, Size);
-        list2.Add(clothing);
-        orderList.Add("c");
-        Console.WriteLine($"Product added to inventory: {productName}");
-    }
-
-    // Display Product
-    public void DisplayInventory()
-    {
-        Console.WriteLine("\nInventory:");
-        int i = 0;
-        int j = 0;
-
-        foreach(var type in orderList)
-        {
-            if(type == "e")
-            {
-                var item = list1[i++];
-                Console.WriteLine($"{item.ProductName} - Price: {item.Price}, Quantity: {item.Quantity}, Warranty: {item.WarrantyPeriod} months");
-            }
-            else
-            {
-                var item = list2[j++];
-                Console.WriteLine($"{item.ProductName} - Price: {item.Price}, Quantity: {item.Quantity}, Size: {item.Size}");
-            }
-        }
-    }
-
-    // Total inventory price
-    public void CalculateTotalPrice()
-    {
-        double totalPrice = 0;
-
-        foreach(var item in list1)
-        {
-            totalPrice += item.Quantity * item.Price;
-        }
-        foreach(var item in list2)
-        {
-            totalPrice += item.Quantity * item.Price;
-        }
-
-        Console.WriteLine($"Total value of the inventory: {totalPrice:F2}");
-    }
-}
-
-class Program
-{
-    static void Main()
-    {
-        Utility utility = new Utility();
-        int n = int.Parse(Console.ReadLine());
-
-        for(int i=0; i<n; i++)
-        {
-            string input = Console.ReadLine();
-            string[] inputs = input.Split(',');
-
-            if (inputs[0].Trim() == "Electronics")
-            {
-                string productName = inputs[1].Trim();
-                double price = double.Parse(inputs[2].Trim());
-                int quantity = int.Parse(inputs[3].Trim());
-                int warrantyPeriod = int.Parse(inputs[4].Trim());
-
-                utility.AddElectronicsProduct(productName, price, quantity, warrantyPeriod);
-            }
-            else if (inputs[0].Trim() == "Clothing")
-            {
-                string productName = inputs[1].Trim();
-                double price = double.Parse(inputs[2].Trim());
-                int quantity = int.Parse(inputs[3].Trim());
-                string size = inputs[4].Trim();
-
-                utility.AddClothingProduct(productName, price, quantity, size);
-            }
-        }
-        utility.DisplayInventory();
-        utility.CalculateTotalPrice();
-    }
-}
-
 // ===================================================================
 // Event Planner
 class Festival
@@ -602,8 +472,6 @@ class Festival
     public string Name;
     public string Location;
     public int Date;
-
-    // unknown attribute
     public string A;
     public string B;
     public int C;
@@ -612,26 +480,22 @@ class Festival
 class Utility
 {
     List<Festival> list = new List<Festival>();
-
-    // add festival
+    // add product
     public void AddFestival(Festival f)
     {
         list.Add(f);
     }
 
-    // display festival
-    public void DisplayFestival(string name)
+    // display
+    public void Display(string name)
     {
-        if (!list.Any(x => x.Name == name))
-        {
-            Console.WriteLine("Festival Not Found");
-            return;
-        }
+        bool found = false;
 
         foreach (var item in list)
         {
             if (item.Name == name)
             {
+                found = true;
                 Console.WriteLine($"Festival Name: {item.Name}");
                 Console.WriteLine($"Location: {item.Location}");
                 Console.WriteLine($"Date: {item.Date}");
@@ -654,8 +518,13 @@ class Utility
                     Console.WriteLine($"Number of Artists: {item.B}");
                     Console.WriteLine($"Exhibition Fee: {item.C}");
                 }
-                return;
+                break;
             }
+        }
+
+        if (!found)
+        {
+            Console.WriteLine("Festival Not Found");
         }
     }
 }
@@ -665,9 +534,7 @@ class Program
     static void Main()
     {
         Utility utility = new Utility();
-        int n = int.Parse(Console.ReadLine());
-
-        for (int i = 0; i < n; i++)
+        while (true)
         {
             string input = Console.ReadLine();
 
@@ -701,11 +568,11 @@ class Program
                 }
                 utility.AddFestival(f);
             }
-
             else if (inputs[0] == "DISPLAY_DETAILS")
             {
                 string name = inputs[1];
-                utility.DisplayFestival(name);
+
+                utility.Display(name);
             }
             else if (inputs[0] == "EXIT")
             {
@@ -715,7 +582,7 @@ class Program
     }
 }
 
-// =======================================================================================
+// ===================================================================
 class Passenger
 {
     public string PassengerId { get; set; }
