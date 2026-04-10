@@ -593,7 +593,7 @@ class Passenger
     {
         PassengerId = passengerId;
         SeatNumber = -1;
-        Status = "WAITLISTED";
+        Status = "Waitlisted";
     }
 }
 
@@ -601,7 +601,7 @@ class Flight
 {
     public string FlightNumber { get; set; }
     public int TotalSeat { get; set; }
-    public List<Passenger> BookedPassenger = new List<Passenger>();
+    public List<Passenger> BookList = new List<Passenger>();
     public Queue<Passenger> WaitList = new Queue<Passenger>();
 
     public Flight(string flightNumber, int totalSeat)
@@ -614,7 +614,6 @@ class Flight
 class Utility
 {
     public Dictionary<string, Flight> dict = new Dictionary<string, Flight>();
-
     // create flight
     public void CreateFlight(string flightNumber, int totalSeat)
     {
@@ -634,13 +633,11 @@ class Utility
         }
         Flight f = dict[flightNumber];
         Passenger p = new Passenger(passengerId);
-
-        if (f.BookedPassenger.Count < f.TotalSeat)
+        if (f.BookList.Count < f.TotalSeat)
         {
-            p.Status = "CONFIRMED";
-            p.SeatNumber = f.BookedPassenger.Count + 1;
-            f.BookedPassenger.Add(p);
-
+            p.Status = "Confirmed";
+            p.SeatNumber = f.BookList.Count + 1;
+            f.BookList.Add(p);
             Console.WriteLine($"{passengerId} Confirmed || SeatNumber: {p.SeatNumber}");
         }
         else
@@ -649,7 +646,8 @@ class Utility
             Console.WriteLine($"{passengerId} WaitListed");
         }
     }
-    // Cancel
+
+    // cancel flight
     public void CancelFlight(string flightNumber, string passengerId)
     {
         if (!dict.ContainsKey(flightNumber))
@@ -659,7 +657,7 @@ class Utility
         Flight f = dict[flightNumber];
         Passenger p = null;
 
-        foreach (var item in f.BookedPassenger)
+        foreach (var item in f.BookList)
         {
             if (item.PassengerId == passengerId)
             {
@@ -669,13 +667,13 @@ class Utility
         }
         if (p != null)
         {
-            f.BookedPassenger.Remove(p);
+            f.BookList.Remove(p);
             Console.WriteLine($"{passengerId} cancelled");
 
             // reassianed seat
-            for (int i = 0; i < f.BookedPassenger.Count; i++)
+            for (int i = 0; i < f.BookList.Count; i++)
             {
-                f.BookedPassenger[i].SeatNumber = i + 1;
+                f.BookList[i].SeatNumber = i + 1;
             }
 
             // move waiting list to confirm
@@ -683,9 +681,9 @@ class Utility
             {
                 Passenger wp = f.WaitList.Dequeue();
                 wp.Status = "CONFIRMED";
-                wp.SeatNumber = f.BookedPassenger.Count + 1;
+                wp.SeatNumber = f.BookList.Count + 1;
 
-                f.BookedPassenger.Add(wp);
+                f.BookList.Add(wp);
                 Console.WriteLine($"{wp.PassengerId} Confirmed || SeatNumber : {wp.SeatNumber}");
             }
         }
@@ -705,7 +703,7 @@ class Utility
         var f = dict[flightNumber];
 
         Console.WriteLine("Confirmed");
-        foreach (var p in f.BookedPassenger)
+        foreach (var p in f.BookList)
         {
             Console.WriteLine($"{p.PassengerId} {p.SeatNumber}");
         }
@@ -722,7 +720,7 @@ class Utility
     {
         foreach (var item in dict.Values)
         {
-            var p = item.BookedPassenger.FirstOrDefault(x => x.PassengerId == passengerId);
+            var p = item.BookList.FirstOrDefault(x => x.PassengerId == passengerId);
 
             if (p != null)
             {
@@ -784,6 +782,7 @@ class Program
             else if (inputs[0] == "PASSENGER_STATUS")
             {
                 string passengerId = inputs[1];
+                utility.PassengerStatus(passengerId);
             }
         }
     }
