@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D8kmY4hLffs=",
+  "dgSpecHash": "MfA34F4GpW4=",
   "success": true,
-  "projectFilePath": "C:\\v\\dotnet-project\\asp.net\\UserRegistrationSystem\\UserRegistrationSystem.csproj",
+  "projectFilePath": "C:\\v\\csharp\\asp.net\\UserRegistrationSystem\\UserRegistrationSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pmdhrs\\.nuget\\packages\\azure.core\\1.50.0\\azure.core.1.50.0.nupkg.sha512",
     "C:\\Users\\pmdhrs\\.nuget\\packages\\azure.identity\\1.17.1\\azure.identity.1.17.1.nupkg.sha512",

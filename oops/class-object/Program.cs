@@ -11,7 +11,7 @@ class Student {
 }
 
 class Program {
-    static void Main(string[] args) {
+    static void Main(string[] args) {  
         Student s = new Student();
 
         s.Id = 101;
